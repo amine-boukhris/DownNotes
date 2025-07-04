@@ -5,7 +5,7 @@ const JWT_SECRET = process.env.JWT_SECRET!;
 const ACCESS_EXPIRES = process.env.ACCESS_TOKEN_EXPIRES || "15m";
 const REFRESH_EXPIRES = process.env.REFRESH_TOKEN_EXPIRES || "7d";
 
-interface TokenPayload {
+export interface TokenPayload {
   userId: string;
   email: string;
 }

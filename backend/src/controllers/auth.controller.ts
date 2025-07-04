@@ -4,10 +4,7 @@ import { signAccessToken, signRefreshToken, verifyToken } from "../utils/jwt";
 import prisma from "../prisma";
 import dayjs from "dayjs";
 
-export const registerUser = async (
-  req: Request,
-  res: Response
-): Promise<void> => {
+export const registerUser = async (req: Request, res: Response): Promise<void> => {
   try {
     const { email, password } = req.body;
 
@@ -111,25 +108,16 @@ export const loginUser = async (req: Request, res: Response): Promise<void> => {
   }
 };
 
-export const logoutUser = async (
-  req: Request,
-  res: Response
-): Promise<void> => {
+export const logoutUser = async (req: Request, res: Response): Promise<void> => {
   const refreshToken = req.cookies.refresh;
   if (refreshToken) {
     await prisma.refreshToken.deleteMany({ where: { token: refreshToken } });
   }
 
-  res
-    .clearCookie("accessToken")
-    .clearCookie("refreshToken")
-    .json({ message: "Logged out" });
+  res.clearCookie("accessToken").clearCookie("refreshToken").json({ message: "Logged out" });
 };
 
-export const refreshAccessToken = async (
-  req: Request,
-  res: Response
-): Promise<void> => {
+export const refreshAccessToken = async (req: Request, res: Response): Promise<void> => {
   try {
     const refreshToken = req.cookies.refreshToken;
     if (!refreshToken) {
@@ -172,7 +160,7 @@ export const refreshAccessToken = async (
 export const getuser = async (req: Request, res: Response): Promise<void> => {
   try {
     const user = await prisma.user.findUnique({
-      where: { id: req.user.userId },
+      where: { id: req.user?.userId },
     });
     if (!user) {
       res.status(404).json({ error: "User not found" });
