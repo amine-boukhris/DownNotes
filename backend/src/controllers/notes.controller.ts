@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import prisma from "../prisma";
-import { marked } from "marked";
 import { fakeCheckGrammarAPI } from "../utils/notes";
+import { marked } from "marked";
 
 export const getNotes = async (req: Request, res: Response) => {
   try {
@@ -157,4 +157,3 @@ export const checkNoteGrammar = async (req: Request, res: Response) => {
     res.status(500).json({ error: "Server error: checkNoteGrammar failed" });
   }
 };
-

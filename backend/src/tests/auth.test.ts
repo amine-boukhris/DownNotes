@@ -1,6 +1,8 @@
 import request from "supertest";
 import app from "../app";
 import prisma from "../prisma";
+import { beforeAll, afterAll, it, expect, describe } from "vitest";
+
 
 beforeAll(async () => {
   await prisma.user.deleteMany();
@@ -48,9 +50,7 @@ describe("Auth Routes", () => {
 
     const cookie = loginRes.headers["set-cookie"];
 
-    const protectedRes = await request(app)
-      .get("/api/auth/me")
-      .set("Cookie", cookie);
+    const protectedRes = await request(app).get("/api/auth/me").set("Cookie", cookie);
 
     expect(protectedRes.statusCode).toBe(200);
     expect(protectedRes.body.user.id).toBeDefined();
@@ -73,9 +73,7 @@ describe("Auth Routes", () => {
 
     const refreshCookie = cookies.find((c) => c.startsWith("refreshToken="));
 
-    const res = await request(app)
-      .post("/api/auth/refresh")
-      .set("Cookie", refreshCookie);
+    const res = await request(app).post("/api/auth/refresh").set("Cookie", refreshCookie);
 
     expect(res.statusCode).toBe(200);
     expect(res.headers["set-cookie"]).toEqual(

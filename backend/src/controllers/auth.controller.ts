@@ -159,8 +159,9 @@ export const refreshAccessToken = async (req: Request, res: Response): Promise<v
 
 export const getuser = async (req: Request, res: Response): Promise<void> => {
   try {
+    const userId = req.user?.userId
     const user = await prisma.user.findUnique({
-      where: { id: req.user?.userId },
+      where: { id: userId },
     });
     if (!user) {
       res.status(404).json({ error: "User not found" });
