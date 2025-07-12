@@ -159,7 +159,7 @@ export const refreshAccessToken = async (req: Request, res: Response): Promise<v
 
 export const getuser = async (req: Request, res: Response): Promise<void> => {
   try {
-    const userId = req.user?.userId
+    const userId = req.user?.userId;
     const user = await prisma.user.findUnique({
       where: { id: userId },
     });

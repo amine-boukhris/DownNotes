@@ -13,7 +13,7 @@ export default function LayoutToggle() {
   const {layout, setLayout} = useSettingsStore()
 
   return <DropdownMenu>
-    <DropdownMenuTrigger>
+    <DropdownMenuTrigger asChild>
       <Button variant="outline">Layout</Button>
     </DropdownMenuTrigger>
     <DropdownMenuContent>
