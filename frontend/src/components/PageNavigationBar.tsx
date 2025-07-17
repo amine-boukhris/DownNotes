@@ -35,12 +35,9 @@ export default function PageNavigationBar() {
       </div>
       <div className="flex items-center gap-3">
         {user ? (
-          <>
-            <Button onClick={handleLogout} variant={'outline'}>Logout</Button>
-            <Button asChild>
-              <Link to={"/saves"}>Profile</Link>
-            </Button>
-          </>
+          <Button onClick={handleLogout} variant={"outline"}>
+            Logout
+          </Button>
         ) : (
           <Button asChild>
             <Link to={"/login"}>Login</Link>
